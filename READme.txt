@@ -1,5 +1,6 @@
 Project: Illicit Substance Crime Analytics using ML/NLP (Traceguard)
 
+TraceGuard is the internal codename for this project, representing an AI-powered system designed to trace digital risk signals and generate safety-focused analytics.
 
 -> Overview:
 
@@ -93,6 +94,7 @@ python app.py
 
 This project is intended for educational and research purposes only.
 It should be used to explore AI/NLP techniques for social media analysis — not for unauthorized surveillance or targeting individuals.
+
 
 
 
