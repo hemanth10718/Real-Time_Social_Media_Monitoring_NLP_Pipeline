@@ -1,4 +1,4 @@
-Project: Identification of the User behind Drug Trafficking on Social Media (Traceguard)
+Project: Illicit Substance Crime Analytics using ML/NLP (Traceguard)
 
 
 -> Overview:
@@ -93,6 +93,7 @@ python app.py
 
 This project is intended for educational and research purposes only.
 It should be used to explore AI/NLP techniques for social media analysis — not for unauthorized surveillance or targeting individuals.
+
 
 
 
