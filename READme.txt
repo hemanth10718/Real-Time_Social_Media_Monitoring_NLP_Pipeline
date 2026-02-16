@@ -1,4 +1,4 @@
-Project: Real-Time NLP Pipeline (Social Media Monitoring) **Traceguard**
+Project: Real-Time NLP Pipeline (Social Media Monitoring for identifying Drug Traffickers) **Traceguard**
 
 TraceGuard is the internal codename for this project, representing an AI-powered system designed to trace digital risk signals and generate safety-focused analytics.
 
@@ -94,6 +94,7 @@ python app.py
 
 This project is intended for educational and research purposes only.
 It should be used to explore AI/NLP techniques for social media analysis — not for unauthorized surveillance or targeting individuals.
+
 
 
 
