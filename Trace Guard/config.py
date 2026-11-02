@@ -1,17 +1,15 @@
 import os
 from dotenv import load_dotenv
 
-load_dotenv()
-import os
-from dotenv import load_dotenv
 load_dotenv()  # Load variables from .env file
+
 class Config:
 
-    INSTAGRAM_USERNAME = os.getenv('REMOVED')
-    INSTAGRAM_PASSWORD = os.getenv('REMOVED')
-    TWITTER_BEARER_TOKEN = os.getenv('REMOVED')
-    TELEGRAM_API_ID = os.getenv('REMOVED')
-    TELEGRAM_API_HASH = os.getenv('REMOVED')
+    INSTAGRAM_USERNAME = os.getenv('INSTAGRAM_USERNAME')
+    INSTAGRAM_PASSWORD = os.getenv('INSTAGRAM_PASSWORD')
+    TWITTER_BEARER_TOKEN = os.getenv('TWITTER_BEARER_TOKEN')
+    TELEGRAM_API_ID = os.getenv('TELEGRAM_API_ID')
+    TELEGRAM_API_HASH = os.getenv('TELEGRAM_API_HASH')
 
 
     # Flask secret key
