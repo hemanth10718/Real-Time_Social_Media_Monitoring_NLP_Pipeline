@@ -3,3 +3,7 @@
 venv/
 __pycache__/
 reports/
+test_*
+temp_*.csv
+report_*.pdf
+temp_wc.png
