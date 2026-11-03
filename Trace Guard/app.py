@@ -16,20 +16,18 @@ from wordcloud import WordCloud
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 
+from dotenv import load_dotenv
+load_dotenv()
+
 app = Flask(__name__)
-app.secret_key = 'your-secret-key-here'  # Change this for production
+app.secret_key = os.getenv('FLASK_SECRET_KEY', 'dev-only-change-me')
 
-# ======== CONFIGURATION ======== (Directly in the file)
-# Instagram credentials
-INSTA_USERNAME = "your_instagram_username"  # Replace with your credentials
-INSTA_PASSWORD = "your_instagram_password"
-
-# Twitter credentials
-TWITTER_BEARER_TOKEN = "your_twitter_bearer_token"
-
-# Telegram credentials (get from https://my.telegram.org)
-TELEGRAM_API_ID = 1234567  # Replace with your API ID
-TELEGRAM_API_HASH = "your_telegram_api_hash"
+# Credentials come from the .env file, never from this file
+INSTA_USERNAME = os.getenv('INSTAGRAM_USERNAME')
+INSTA_PASSWORD = os.getenv('INSTAGRAM_PASSWORD')
+TWITTER_BEARER_TOKEN = os.getenv('TWITTER_BEARER_TOKEN')
+TELEGRAM_API_ID = int(os.getenv('TELEGRAM_API_ID', '0'))
+TELEGRAM_API_HASH = os.getenv('TELEGRAM_API_HASH')
 
 # Proxy settings (if needed)
 PROXIES = []
@@ -41,6 +39,9 @@ if os.path.exists('valid_proxies.txt'):
 def clean_text(text):
     if not isinstance(text, str):
         return ""
+    text = re.sub(r'\[([^\]]*)\]\([^)]*\)', r'\1', text)
+    text = re.sub(r'https?://\S+', ' ', text)
+    text = re.sub(r'[*`]+', '', text)
     text = re.sub(r'[^\x00-\x7F]+', ' ', text)
     return re.sub(r'\s+', ' ', text).strip()
 
@@ -125,12 +126,15 @@ def scrape_telegram(channel_username, limit=10):
             
         async def async_scraper():
             client = TelegramClient(
-                StringSession(),
+                StringSession(os.getenv('TELEGRAM_SESSION')),
                 TELEGRAM_API_ID,
                 TELEGRAM_API_HASH
             )
-            
-            await client.start()
+
+            await client.connect()
+            if not await client.is_user_authorized():
+                await client.disconnect()
+                return pd.DataFrame(), "Telegram not logged in. Run the one-time login step."
             
             try:
                 channel = await client.get_entity(channel_username)
@@ -154,8 +158,12 @@ def scrape_telegram(channel_username, limit=10):
             finally:
                 await client.disconnect()
         
-        nest_asyncio.apply()
-        return asyncio.run(async_scraper())
+        loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(loop)
+        try:
+            return loop.run_until_complete(async_scraper())
+        finally:
+            loop.close()
         
     except Exception as e:
         return pd.DataFrame(), f"Telegram setup failed: {str(e)}"
@@ -199,7 +207,7 @@ def generate_nlp_report(data_file, score, output_pdf):
         pdf.cell(0, 10, "Social Media Activity Analysis Report", ln=1, align='C')
         
         pdf.set_font("Arial", 'B', 14)
-        pdf.cell(0, 10, f"Suspicious Content Score: {score}%", ln=1)
+        pdf.cell(0, 10, f"Text Similarity Score: {score}%", ln=1)
         
         pdf.set_font("Arial", '', 12)
         pdf.multi_cell(0, 10, f"Key Findings:\n{summary}")

@@ -48,7 +48,7 @@ def generate_nlp_report(data_file, score, output_pdf):
         pdf.cell(0, 10, "Social Media Activity Analysis Report", ln=1, align='C')
         
         pdf.set_font("Arial", 'B', 14)
-        pdf.cell(0, 10, f"Suspicious Content Score: {score}%", ln=1)
+        pdf.cell(0, 10, f"Text Similarity Score: {score}%", ln=1)
         
         pdf.set_font("Arial", '', 12)
         pdf.multi_cell(0, 10, f"Key Findings:\n{summary}")

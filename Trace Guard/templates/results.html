@@ -10,15 +10,15 @@
     
     <div class="score-card {% if score > 70 %}high-risk{% elif score > 40 %}medium-risk{% else %}low-risk{% endif %}">
         <div class="score-value">{{ score }}%</div>
-        <div class="score-label">Suspicious Content Similarity</div>
+        <div class="score-label">Text Similarity Score</div>
         
         <div class="risk-level">
             {% if score > 70 %}
-                High Risk - Strong similarity to known drug-related content
+                High - strong similarity to the reference set
             {% elif score > 40 %}
-                Medium Risk - Some similarity to known drug-related content
+                Medium - some similarity to the reference set
             {% else %}
-                Low Risk - Minimal similarity to known drug-related content
+                Low - minimal similarity to the reference set
             {% endif %}
         </div>
     </div>

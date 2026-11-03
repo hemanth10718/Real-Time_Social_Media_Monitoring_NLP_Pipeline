@@ -7,3 +7,6 @@ test_*
 temp_*.csv
 report_*.pdf
 temp_wc.png
+
+*.session
+*.session-journal
