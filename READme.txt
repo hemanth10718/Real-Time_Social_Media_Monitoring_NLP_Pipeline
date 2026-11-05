@@ -138,13 +138,6 @@ The first report downloads the summarization model (about 1.6 GB). It is cached 
 - `.gitignore` excludes `.env`, `venv/`, `*.session`, generated reports and test files.
 - If a key is ever exposed, revoke it at the source (platform developer console) rather than only deleting it from the code.
 
----
-## Author
-
-Developed by Hemanth R
-
 ## License
-
-This project is licensed under the **MIT License**.
 
 See the [LICENSE](LICENSE) file.
