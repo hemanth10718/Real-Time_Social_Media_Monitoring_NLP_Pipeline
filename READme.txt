@@ -1,4 +1,4 @@
-# TraceGuard: Social Media Text Analyzer
+## TraceGuard: Social Media Text Analyzer
 
 A Flask web app that reads recent public posts from a social media source, compares the text to a reference set using TF-IDF and cosine similarity, and generates a PDF report with an AI-written summary and a word cloud.
 
